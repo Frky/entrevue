@@ -9,12 +9,12 @@ from rdv.widgets import DateWidget
 class RDVForm(forms.ModelForm):
     class Meta:
         model = RDV
-        fields = ['proposed_date', 'email_creator', 'place']
+        fields = ['proposed_date', 'proposer', 'place']
         widgets = {
             'proposed_date': DateWidget(attrs={
                 'placeholder': ['Quel jour ?', 'Quelle heure ?']
             }),
-            'email_creator': forms.TextInput(attrs={'placeholder': 'Nom'}),
+            'proposer': forms.TextInput(attrs={'placeholder': 'Nom'}),
             'place': forms.TextInput(attrs={'placeholder': 'Lieu du rendez-vous'}),
         }
 

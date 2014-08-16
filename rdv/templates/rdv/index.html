@@ -1,14 +1,17 @@
 {% extends "rdv/base.html" %}
 
 {% block content %}
-
-<h1> Hi Jim ! </h1>
+<hgroup>
+    <h1 class="animated fadeInDown"> Entrevue </h1>
+    <h4 class="animated fadeInDown"> tu viens ? </h4>
+</hgroup>
 
 {% for rdv in rdv_list %}
     <p>
         {{ rdv.proposed_date }}
     </p>
 {% endfor %}
+
 <h3>{{ rdv_created }}</h3>
 <h3>{{ new_rdv }}</h3>
 

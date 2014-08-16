@@ -22,7 +22,6 @@ from rdv.models import RDV, Answer
 from rdv.forms import RDVForm
 
 
-
 class IndexView(CreateView):
     template_name = "rdv/index.html"
     model = RDV

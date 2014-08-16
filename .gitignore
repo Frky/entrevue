@@ -52,5 +52,8 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+# PyCharm
+.idea
+
 rdv/static/rdv/.sass-cache
 rdv_db.sqlite3

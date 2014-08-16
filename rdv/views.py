@@ -104,34 +104,47 @@ class ReproposeView(TemplateView):
             print "No rdvid given."
             return self.render_to_response(context)
 
-        print "RID"
-        print request.GET['rdvid']
+        # Get initial proposition
         rdv = RDV.objects.get(id=request.GET['rdvid'])
-        prev_prop = rdv
-        print "plop"
-        print rdv.proposed_date
-        print prev_prop.counter_proposition.all()
-        while len(prev_prop.counter_proposition.all()) > 0:
-            print "New prop"
-            prev_prop = prev_prop.counter_proposition.all()[0]
+
+        # Then we try to reach the last proposition
+        curr_prop = rdv
+        # While there is a previous proposition
+        while len(curr_prop.counter_proposition.all()) > 0:
+            # We take one step back
+            curr_prop = curr_prop.counter_proposition.all()[0]
         
+        # At this point, rdv is the initial proposition and curr_prop is the current one
+
+        # Get the name of the proposer
         if "nickname" in request.GET.keys():
             nickname = request.GET["nickname"]
         else:
             nickname = ""
-        ans = Answer(answerer=nickname, value='o')
-        ans.save()
-        prev_prop.answer = ans
-        prev_prop.save()
 
+        # Creation of an answer for the current proposition
+        ans = Answer(answerer=nickname, value='o')
+        # Saving the answer
+        ans.save()
+        # Linking answer to the proposition
+        curr_prop.answer = ans
+        curr_prop.save()
+
+        # NExt, we create the new proposition
+
+        # Get the date string
         date_str = request.GET["proposed_date"]
+        # Create the date object
         date = datetime.strptime(date_str, "%m/%d/%Y") 
+        # Get the date
         place = request.GET["place"]
+        # Create the new rdv object linked to the previous proposition
         new_rdv = RDV(initial_rdv=prev_prop, 
                 proposer=nickname, 
                 proposed_date=date, place=place)
         new_rdv.save()
         
+        # Redirect to the page of the initial proposition
         return redirect("/" + str(rdv.id))
 
 

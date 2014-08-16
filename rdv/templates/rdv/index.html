@@ -1,47 +1,53 @@
-<!DOCTYPE HTML>
+{% extends "rdv/base.html" %}
 
-{% load staticfiles %}
+{% block content %}
 
-<head>
-    <link rel="stylesheet" href="{% static 'rdv/css/bootstrap.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'rdv/generated/css/style.css' %}" />
-</head>
+<h1> Hi Jim ! </h1>
 
-<body>
+{% for rdv in rdv_list %}
+    <p>
+        {{ rdv.proposed_date }}
+    </p>
+{% endfor %}
+<h3>{{ rdv_created }}</h3>
+<h3>{{ new_rdv }}</h3>
 
-    <h1> Hi Jim ! </h1>
+{% if rdv_created %}
+    <h2>CREATED</h2>
+    <a href="{% url 'index' %}">Créer un autre rendez-vous</a>
+{% else %}
+    <form action="" method="post" id="rdvForm">
 
-    {% for rdv in rdv_list %}
-        <p>
-            {{ rdv.proposed_date }}
-        </p>
-    {% endfor %}
-    <h3>{{ rdv_created }}</h3>
-    <h3>{{ new_rdv }}</h3>
-
-    {% if rdv_created %}
-        <h2>CREATED</h2>
-        <a href="{% url 'index' %}">Créer un autre rendez-vous</a>
-    {% else %}
-        <form action="" method="post" id="rdvForm">
-    
-            {% csrf_token %}
-            
-            <div class="input-group">
-                    <span class="input-group-addon">@</span>
-                    <input id="id_proposed_date" name="proposed_date" type="text" class="form-control" placeholder="email">
-            </div>
-            <div class="input-group">
-                    <span class="input-group-addon">?</span>
-                    <input id="id_email_creator" type="text" class="form-control" placeholder="email">
-            </div>
-            <div class="input-group">
-                    <span class="input-group-addon">!</span>
-                    <input id="id_place" type="text" class="form-control" placeholder="email">
-            </div>
+        {% csrf_token %}
         
-            <input class="form-control" type="submit" value="Créer un rendez-vous" />
-        </form>
-    {% endif %}
+        <div class="input-group date">
+              <input type="text" class="form-control" id="id_proposed_date" name="proposed_date" placeholder="Quel jour ?"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+        </div>
 
-</body>
+        <div class="input-group bootstrap-timepicker">
+            <input id="timepicker" type="text" class="input-small form-control" placeholder="Quelle heure ?" value="">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+        </div>
+
+        <div class="input-group">
+                <span class="input-group-addon">?</span>
+                <input id="id_email_creator" type="text" class="form-control" placeholder="email">
+        </div>
+        <div class="input-group">
+                <span class="input-group-addon">!</span>
+                <input id="id_place" type="text" class="form-control" placeholder="email">
+        </div>
+    
+        <input class="form-control" type="submit" value="Créer un rendez-vous" />
+    </form>
+{% endif %}
+
+<script>
+    $( document ).ready(function() {
+        $('.input-group.date').datepicker({});
+        $('#timepicker').timepicker();
+    });
+
+</script>
+
+{% endblock %}

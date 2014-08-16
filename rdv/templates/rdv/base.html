@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+
+{% load staticfiles %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'rdv/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'rdv/css/datepicker.css' %}" />
+    <link rel="stylesheet" href="{% static 'rdv/css/bootstrap-timepicker.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'rdv/generated/css/style.css' %}" />
+
+    <script src="{% static 'rdv/js/jquery.min.js' %}"></script>
+    <script src="{% static 'rdv/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'rdv/js/bootstrap-datepicker.js' %}"></script>
+    <script src="{% static 'rdv/js/bootstrap-timepicker.min.js' %}"></script>
+</head>
+
+<body>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+
+</html>

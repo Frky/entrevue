@@ -12,8 +12,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     #    url(r'^admin/', include(admin.site.urls)),
+    url(r'^(?P<rdvid>[-A-Za-z0-9_]+)$', RDVView.as_view(), name="rdv_page"),
     url(r'^$', IndexView.as_view(), name="index"),
-    url(r'^$', CreatedView.as_view(), name="created"),
-    #    url(r'^(?P<cid>[-A-Za-z0-9_]+)$', 'rdv.views.rdv_page', name="rdv_page"),
 
 )

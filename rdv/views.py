@@ -28,9 +28,11 @@ class IndexView(CreateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(IndexView, self).get_context_data(*args, **kwargs)
-                 
-        if not (self.object is None): 
-            context.update({'new_rdv': self.object})
+        context["rdv_list"] = RDV.objects.all()
+        print context
+        if self.object != None:
+            context['new_rdv'] = self.object
+            context['rdv_created'] = True
         return context
 
 

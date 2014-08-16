@@ -11,24 +11,37 @@
 
     <h1> Hi Jim ! </h1>
 
-    <form action="" method="post" id="rdvForm">
+    {% for rdv in rdv_list %}
+        <p>
+            {{ rdv.proposed_date }}
+        </p>
+    {% endfor %}
+    <h3>{{ rdv_created }}</h3>
+    <h3>{{ new_rdv }}</h3>
 
-        {% csrf_token %}
-        
-        <div class="input-group">
-                <span class="input-group-addon">@</span>
-                <input id="id_proposed_date" name="proposed_date" type="text" class="form-control" placeholder="email">
-        </div>
-        <div class="input-group">
-                <span class="input-group-addon">?</span>
-                <input id="id_email_creator" type="text" class="form-control" placeholder="email">
-        </div>
-        <div class="input-group">
-                <span class="input-group-addon">!</span>
-                <input id="id_place" type="text" class="form-control" placeholder="email">
-        </div>
+    {% if rdv_created %}
+        <h2>CREATED</h2>
+        <a href="{% url 'index' %}">Créer un autre rendez-vous</a>
+    {% else %}
+        <form action="" method="post" id="rdvForm">
     
-        <input class="form-control" type="submit" value="Créer un rendez-vous" />
-    </form>
+            {% csrf_token %}
+            
+            <div class="input-group">
+                    <span class="input-group-addon">@</span>
+                    <input id="id_proposed_date" name="proposed_date" type="text" class="form-control" placeholder="email">
+            </div>
+            <div class="input-group">
+                    <span class="input-group-addon">?</span>
+                    <input id="id_email_creator" type="text" class="form-control" placeholder="email">
+            </div>
+            <div class="input-group">
+                    <span class="input-group-addon">!</span>
+                    <input id="id_place" type="text" class="form-control" placeholder="email">
+            </div>
+        
+            <input class="form-control" type="submit" value="Créer un rendez-vous" />
+        </form>
+    {% endif %}
 
 </body>

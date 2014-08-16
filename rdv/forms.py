@@ -14,7 +14,7 @@ class RDVForm(forms.ModelForm):
             'proposed_date': DateWidget(attrs={
                 'placeholder': ['Quel jour ?', 'Quelle heure ?']
             }),
-            'email_creator': forms.EmailInput(attrs={'placeholder': 'email'}),
+            'email_creator': forms.TextInput(attrs={'placeholder': 'Nom'}),
             'place': forms.TextInput(attrs={'placeholder': 'Lieu du rendez-vous'}),
         }
 

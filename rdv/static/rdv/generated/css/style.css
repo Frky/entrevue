@@ -27,21 +27,103 @@ hgroup {
 hgroup h1, hgroup h2, hgroup h3, hgroup h4, hgroup h5, hgroup h6 {
   margin-top: 0px;
 }
-
-/* line 24, ../../scss/style.scss */
-h1 {
-  font-family: 'Open Sans', sans-serif;
+/* line 22, ../../scss/style.scss */
+hgroup h1 {
+  font-family: 'Roboto', sans-serif;
   padding-top: 30px;
   font-size: 6em;
   font-weight: 300;
   text-transform: uppercase;
   color: #ecf0f1;
 }
-
-/* line 33, ../../scss/style.scss */
-h4 {
+/* line 31, ../../scss/style.scss */
+hgroup h4 {
   font-family: 'Wild Script';
   font-size: 2.5em;
   font-weight: normal;
   color: #34495e;
+}
+
+/* line 39, ../../scss/style.scss */
+section {
+  width: 100%;
+  max-width: 960px;
+  margin: 50px auto;
+  padding: 0 50px;
+}
+/* line 45, ../../scss/style.scss */
+section h1 {
+  font-family: 'Roboto';
+  font-size: 2em;
+  color: #34495e;
+  margin-bottom: 30px;
+  font-weight: 100;
+}
+
+/* line 54, ../../scss/style.scss */
+.input-group {
+  display: block;
+  margin: 20px 0;
+  color: #34495e;
+}
+/* line 59, ../../scss/style.scss */
+.input-group.warning {
+  color: #e74c3c;
+}
+/* line 63, ../../scss/style.scss */
+.input-group label {
+  display: block;
+  font-family: 'Roboto';
+  font-size: 1em;
+  font-weight: normal;
+  margin-bottom: -2px;
+}
+/* line 71, ../../scss/style.scss */
+.input-group input {
+  display: block;
+  width: 100%;
+  height: 40px;
+  font-size: 2em;
+  padding: 20px 10px;
+  color: #e74c3c;
+  font-family: 'Roboto';
+  font-weight: 100;
+  outline: none;
+  border: 2px solid #ddd;
+  margin-bottom: 10px;
+  -webkit-transition: border 0.5s ease;
+  -moz-transition: border 0.5s ease;
+  -ms-transition: border 0.5s ease;
+  -o-transition: border 0.5s ease;
+  transition: border 0.5s ease;
+}
+/* line 84, ../../scss/style.scss */
+.input-group input:focus {
+  border: 2px solid #e74c3c;
+}
+
+/* line 96, ../../scss/style.scss */
+.validate {
+  background-color: transparent;
+  border: 2px solid #34495e;
+  display: block;
+  width: 300px;
+  height: 40px;
+  margin: 0 auto;
+  font-family: 'Roboto';
+  font-size: 1.5em;
+  color: #34495e;
+  margin-top: 50px;
+  text-transform: uppercase;
+  font-weight: 300;
+  -webkit-transition: color 0.5s ease;
+  -moz-transition: color 0.5s ease;
+  -ms-transition: color 0.5s ease;
+  -o-transition: color 0.5s ease;
+  transition: color 0.5s ease;
+}
+/* line 110, ../../scss/style.scss */
+.validate:hover {
+  background-color: #3498db;
+  color: #ecf0f1;
 }

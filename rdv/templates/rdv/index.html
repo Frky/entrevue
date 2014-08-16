@@ -1,56 +1,44 @@
 {% extends "rdv/base.html" %}
+{% load tags %}
 
 {% block content %}
-<hgroup>
-    <h1 class="animated fadeInDown"> Entrevue </h1>
-    <h4 class="animated fadeInDown"> tu viens ? </h4>
-</hgroup>
+    <hgroup>
+        <h1 class="animated fadeInDown"> Entrevue </h1>
+        <h4 class="animated fadeInDown"> tu viens ? </h4>
+    </hgroup>
 
-{% for rdv in rdv_list %}
-    <p>
-        {{ rdv.proposed_date }}
-    </p>
-{% endfor %}
+    <section>
+        <h1>Proposer & partager</h1>
 
-<h3>{{ rdv_created }}</h3>
-<h3>{{ new_rdv }}</h3>
+        <form action="{% url 'index' %}" method="post" id="rdvForm">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="input-group {% if field.errors %}warning{% endif %}">
+                    <label for="{{ field.name }}">{{ field.label }}{% if field.errors %} ({% for error in field.errors %}{{ error }}{% if forloop.counter != field.errors|length %}/{% endif %}{% endfor %}){% endif %}</label>
+                    {{ field }}
+                </div>
+            {% endfor %}
 
-{% if rdv_created %}
-    <h2>CREATED</h2>
-    <a href="{% url 'index' %}">Créer un autre rendez-vous</a>
-{% else %}
-    <form action="" method="post" id="rdvForm">
+            <input class="validate" type="submit" value="Créer le rendez-vous"/>
+        </form>
+    </section>
 
-        {% csrf_token %}
-        
-        <div class="input-group date">
-              <input type="text" class="form-control" id="id_proposed_date" name="proposed_date" placeholder="Quel jour ?"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-        </div>
+   <script>
+        $(document).ready(function () {
+            $('#id_proposed_date_0').pickadate({
+                close: 'Fermer',
+                formatSubmit: 'yyyy-mm-dd'
+            });
+            $('#id_proposed_date_1').pickatime({
+                editable: true,
+                formatSubmit: 'H:i',
+                format: 'H:i'
+            });
+            $('#rdvForm').on('submit', function() {
+                $(this).submit();
+            });
+        });
 
-        <div class="input-group bootstrap-timepicker">
-            <input id="timepicker" type="text" class="input-small form-control" placeholder="Quelle heure ?" value="">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-        </div>
 
-        <div class="input-group">
-                <span class="input-group-addon">?</span>
-                <input id="id_email_creator" type="text" class="form-control" placeholder="email">
-        </div>
-        <div class="input-group">
-                <span class="input-group-addon">!</span>
-                <input id="id_place" type="text" class="form-control" placeholder="email">
-        </div>
-    
-        <input class="form-control" type="submit" value="Créer un rendez-vous" />
-    </form>
-{% endif %}
-
-<script>
-    $( document ).ready(function() {
-        $('.input-group.date').datepicker({});
-        $('#timepicker').timepicker();
-    });
-
-</script>
-
+    </script>
 {% endblock %}

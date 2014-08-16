@@ -25,7 +25,12 @@ from rdv.forms import RDVForm
 class IndexView(CreateView):
     template_name = "rdv/index.html"
     model = RDV
+    form_class = RDVForm
     fields = ['proposed_date', 'email_creator', 'place']
+
+    def post(self, request, *args, **kwargs):
+        print request.POST
+        return super(IndexView, self).post(request, *args, **kwargs)
 
     def form_valid(self, form):
         self.object = form.save()
@@ -36,10 +41,10 @@ class IndexView(CreateView):
     def get_context_data(self, *args, **kwargs):
         context = super(IndexView, self).get_context_data(*args, **kwargs)
         context["rdv_list"] = RDV.objects.all()
-        print context
         if self.object != None:
             context['new_rdv'] = self.object
             context['rdv_created'] = True
+
         return context
 
 

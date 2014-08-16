@@ -3,17 +3,22 @@
 {% load staticfiles %}
 
 <head>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{% static 'rdv/css/animate.min.css' %}" />
     <link rel="stylesheet" href="{% static 'rdv/css/bootstrap.min.css' %}" />
     <link rel="stylesheet" href="{% static 'rdv/css/datepicker.css' %}" />
     <link rel="stylesheet" href="{% static 'rdv/css/bootstrap-timepicker.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'rdv/libs/pickadate/themes/default.css' %}" />
+    <link rel="stylesheet" href="{% static 'rdv/libs/pickadate/themes/default.date.css' %}" />
+    <link rel="stylesheet" href="{% static 'rdv/libs/pickadate/themes/default.time.css' %}" />
     <link rel="stylesheet" href="{% static 'rdv/generated/css/style.css' %}" />
 
     <script src="{% static 'rdv/js/jquery.min.js' %}"></script>
-    <script src="{% static 'rdv/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'rdv/js/bootstrap-datepicker.js' %}"></script>
-    <script src="{% static 'rdv/js/bootstrap-timepicker.min.js' %}"></script>
+    <script src="{% static 'rdv/libs/pickadate/picker.js' %}"></script>
+    <script src="{% static 'rdv/libs/pickadate/picker.time.js' %}"></script>
+    <script src="{% static 'rdv/libs/pickadate/picker.date.js' %}"></script>
+    <script src="{% static 'rdv/libs/pickadate/translations/fr_FR.js' %}"></script>
+
 </head>
 
 <body>

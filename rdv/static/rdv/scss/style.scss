@@ -18,21 +18,103 @@ hgroup {
     h1, h2, h3, h4, h5, h6 {
         margin-top: 0px;
     }
+
+    h1 {
+        font-family: 'Roboto', sans-serif;
+        padding-top: 30px;
+        font-size: 6em;
+        font-weight: 300;
+        text-transform: uppercase;
+        color: $clouds;
+    }
+
+    h4 {
+        font-family: 'Wild Script';
+        font-size: 2.5em;
+        font-weight: normal;
+        color: $wet-asphalt;
+    }
 }
 
+section {
+    width: 100%;
+    max-width: 960px;
+    margin: 50px auto;
+    padding: 0 50px;
 
-h1 {
-    font-family: 'Open Sans', sans-serif;
-    padding-top: 30px;
-    font-size: 6em;
-    font-weight: 300;
-    text-transform: uppercase;
-    color: $clouds;
+    h1 {
+        font-family: 'Roboto';
+        font-size: 2em;
+        color: $wet-asphalt;
+        margin-bottom: 30px;
+        font-weight: 100;
+    }
 }
 
-h4 {
-    font-family: 'Wild Script';
-    font-size: 2.5em;
-    font-weight: normal;
+.input-group {
+    display: block;
+    margin: 20px 0;
     color: $wet-asphalt;
+
+    &.warning {
+        color: $alizarin;
+    }
+
+    label {
+        display: block;
+        font-family: 'Roboto';
+        font-size: 1em;
+        font-weight: normal;
+        margin-bottom: -2px;
+    }
+
+    input {
+        display: block;
+        width: 100%;
+        height: 40px;
+        font-size: 2em;
+        padding: 20px 10px;
+        color: $alizarin;
+        font-family: 'Roboto';
+        font-weight: 100;
+        outline: none;
+        border: 2px solid #ddd;
+        margin-bottom: 10px;
+
+        &:focus {
+            border: 2px solid $alizarin;
+        }
+
+        -webkit-transition: border 0.5s ease;
+           -moz-transition: border 0.5s ease;
+            -ms-transition: border 0.5s ease;
+             -o-transition: border 0.5s ease;
+                transition: border 0.5s ease;
+    }
+}
+
+.validate {
+    background-color: transparent;
+    border: 2px solid $wet-asphalt;
+    display: block;
+    width: 300px;
+    height: 40px;
+    margin: 0 auto;
+    font-family: 'Roboto';
+    font-size: 1.5em;
+    color: $wet-asphalt;
+    margin-top: 50px;
+    text-transform: uppercase;
+    font-weight: 300;
+
+    &:hover {
+        background-color: $peter-river;
+        color: $clouds;
+    }
+
+    -webkit-transition: color 0.5s ease;
+       -moz-transition: color 0.5s ease;
+        -ms-transition: color 0.5s ease;
+         -o-transition: color 0.5s ease;
+            transition: color 0.5s ease;
 }

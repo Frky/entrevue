@@ -52,3 +52,5 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+rdv/static/rdv/.sass-cache
+rdv_db.sqlite3

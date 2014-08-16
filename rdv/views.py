@@ -14,7 +14,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
-from django.views.generic.detail import DetailView
 
 from datetime import datetime
 
@@ -163,6 +162,13 @@ class RDVView(TemplateView):
             print rdv
         context["rdv"] = rdv 
         return self.render_to_response(context)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(RDVView, self).get_context_data(*args, **kwargs)
+        context.update({
+            'form': RDVForm(),
+        })
+        return context
 
     model = RDV
     slug_field = 'pk'

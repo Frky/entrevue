@@ -24,9 +24,6 @@ class RDVForm(forms.ModelForm):
 
         proposed_date = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M')
 
-        print isinstance(proposed_date, datetime.datetime)
-        print type(proposed_date)
-
         if isinstance(proposed_date, datetime.datetime):
             del self.errors['proposed_date']
 

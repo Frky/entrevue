@@ -13,9 +13,16 @@ body, html {
   margin: 0;
   background-color: #ecf0f1;
   height: 100%;
+  font-family: 'Roboto';
+  color: #34495e;
 }
 
-/* line 11, ../../scss/style.scss */
+/* line 13, ../../scss/style.scss */
+a {
+  color: #34495e;
+}
+
+/* line 17, ../../scss/style.scss */
 hgroup {
   margin: 0;
   height: 220px;
@@ -23,11 +30,11 @@ hgroup {
   text-align: center;
   border-bottom: 15px #34495e solid;
 }
-/* line 18, ../../scss/style.scss */
+/* line 24, ../../scss/style.scss */
 hgroup h1, hgroup h2, hgroup h3, hgroup h4, hgroup h5, hgroup h6 {
   margin-top: 0px;
 }
-/* line 22, ../../scss/style.scss */
+/* line 28, ../../scss/style.scss */
 hgroup h1 {
   font-family: 'Roboto', sans-serif;
   padding-top: 30px;
@@ -36,22 +43,30 @@ hgroup h1 {
   text-transform: uppercase;
   color: #ecf0f1;
 }
-/* line 31, ../../scss/style.scss */
+/* line 37, ../../scss/style.scss */
 hgroup h4 {
   font-family: 'Wild Script';
   font-size: 2.5em;
   font-weight: normal;
   color: #34495e;
 }
+/* line 44, ../../scss/style.scss */
+hgroup.not-home {
+  height: 100px;
+}
+/* line 47, ../../scss/style.scss */
+hgroup.not-home h4 {
+  padding-top: 20px;
+}
 
-/* line 39, ../../scss/style.scss */
+/* line 53, ../../scss/style.scss */
 section {
   width: 100%;
   max-width: 960px;
   margin: 50px auto;
   padding: 0 50px;
 }
-/* line 45, ../../scss/style.scss */
+/* line 59, ../../scss/style.scss */
 section h1 {
   font-family: 'Roboto';
   font-size: 2em;
@@ -60,17 +75,17 @@ section h1 {
   font-weight: 100;
 }
 
-/* line 54, ../../scss/style.scss */
+/* line 68, ../../scss/style.scss */
 .input-group {
   display: block;
   margin: 20px 0;
   color: #34495e;
 }
-/* line 59, ../../scss/style.scss */
+/* line 73, ../../scss/style.scss */
 .input-group.warning {
   color: #e74c3c;
 }
-/* line 63, ../../scss/style.scss */
+/* line 77, ../../scss/style.scss */
 .input-group label {
   display: block;
   font-family: 'Roboto';
@@ -78,7 +93,7 @@ section h1 {
   font-weight: normal;
   margin-bottom: -2px;
 }
-/* line 71, ../../scss/style.scss */
+/* line 85, ../../scss/style.scss */
 .input-group input {
   display: block;
   width: 100%;
@@ -97,19 +112,19 @@ section h1 {
   -o-transition: border 0.5s ease;
   transition: border 0.5s ease;
 }
-/* line 84, ../../scss/style.scss */
+/* line 98, ../../scss/style.scss */
 .input-group input:focus {
   border: 2px solid #e74c3c;
 }
 
-/* line 96, ../../scss/style.scss */
+/* line 110, ../../scss/style.scss */
 .validate {
   background-color: transparent;
   border: 2px solid #34495e;
   display: block;
-  width: 300px;
   height: 40px;
   margin: 0 auto;
+  padding: 0 30px;
   font-family: 'Roboto';
   font-size: 1.5em;
   color: #34495e;
@@ -122,8 +137,52 @@ section h1 {
   -o-transition: color 0.5s ease;
   transition: color 0.5s ease;
 }
-/* line 110, ../../scss/style.scss */
+/* line 124, ../../scss/style.scss */
 .validate:hover {
   background-color: #3498db;
   color: #ecf0f1;
+}
+
+/* line 136, ../../scss/style.scss */
+#answerForm {
+  margin-bottom: 50px;
+}
+/* line 139, ../../scss/style.scss */
+#answerForm input[type=button] {
+  display: inline-block;
+  width: 47%;
+  margin-left: 2%;
+}
+/* line 144, ../../scss/style.scss */
+#answerForm input[type=button] + input[type=button] {
+  margin-right: 2%;
+}
+/* line 148, ../../scss/style.scss */
+#answerForm input[type=button].yes {
+  background-color: #27ae60;
+  color: #fff;
+}
+/* line 152, ../../scss/style.scss */
+#answerForm input[type=button].yes:hover {
+  background-color: #2ecc71;
+  color: #ecf0f1;
+}
+/* line 158, ../../scss/style.scss */
+#answerForm input[type=button].no {
+  background-color: #c0392b;
+  color: #ecf0f1;
+}
+/* line 162, ../../scss/style.scss */
+#answerForm input[type=button].no:hover {
+  background-color: #e74c3c;
+  color: #ecf0f1;
+}
+
+/* line 170, ../../scss/style.scss */
+.repropose {
+  display: none;
+}
+/* line 173, ../../scss/style.scss */
+.repropose.active {
+  display: block;
 }

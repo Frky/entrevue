@@ -6,6 +6,12 @@ body, html {
     margin: 0;
     background-color: $clouds;
     height: 100%;
+    font-family: 'Roboto';
+    color: $wet-asphalt;
+}
+
+a {
+    color: $wet-asphalt;
 }
 
 hgroup {
@@ -33,6 +39,14 @@ hgroup {
         font-size: 2.5em;
         font-weight: normal;
         color: $wet-asphalt;
+    }
+
+    &.not-home {
+        height: 100px;
+
+        h4 {
+            padding-top: 20px;
+        }
     }
 }
 
@@ -97,9 +111,9 @@ section {
     background-color: transparent;
     border: 2px solid $wet-asphalt;
     display: block;
-    width: 300px;
     height: 40px;
     margin: 0 auto;
+    padding: 0 30px;
     font-family: 'Roboto';
     font-size: 1.5em;
     color: $wet-asphalt;
@@ -117,4 +131,46 @@ section {
         -ms-transition: color 0.5s ease;
          -o-transition: color 0.5s ease;
             transition: color 0.5s ease;
+}
+
+#answerForm {
+    margin-bottom: 50px;
+
+    input[type=button] {
+        display: inline-block;
+        width: 47%;
+        margin-left: 2%;
+
+        & + input[type=button] {
+            margin-right: 2%;
+        }
+
+        &.yes {
+            background-color: $nephritis;
+            color: #fff;
+
+            &:hover {
+                background-color: $emerald;
+                color: $clouds;
+            }
+        }
+
+        &.no {
+            background-color: $pomegranate;
+            color: $clouds;
+
+            &:hover {
+                background-color: $alizarin;
+                color: $clouds;
+            }
+        }
+    }
+}
+
+.repropose {
+    display: none;
+
+    &.active {
+        display: block;
+    }
 }

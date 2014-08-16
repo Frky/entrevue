@@ -5,20 +5,32 @@ from rdv.random_primary import RandomPrimaryIdModel
 
 
 class Answer(models.Model):
+    YES = 'y'
+    NO = 'n'
+    OTHER = 'o'
+
+    ANS_CHOICES = ( 
+            (YES, "Yes"), 
+            (NO, "No"), 
+            (OTHER, "Other"),
+        )
+
     date = models.DateTimeField(auto_now_add=True)
+    value = models.CharField(max_length=1, 
+                            choices=ANS_CHOICES)
+    answerer = models.CharField(max_length=256, blank=True, null=True)
 
 
-class Yes(Answer):
-    None
-
-
-class No(Answer):
-    None
-
-
-class Other(Answer):
-    None
-
+    #class Yes(Answer):
+    #    ans = "YES"
+    #
+    #class No(Answer):
+    #    ans = "no"
+    #
+    #
+    #class Other(Answer):
+    #    None
+    #
 
 class RDV(RandomPrimaryIdModel):
     creation = models.DateTimeField(auto_now_add=True)

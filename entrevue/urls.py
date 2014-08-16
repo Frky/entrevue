@@ -12,6 +12,8 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     #    url(r'^admin/', include(admin.site.urls)),
+    url(r'^answer$', AnswerView.as_view(), name="answer"),
+    url(r'^repropose$', ReproposeView.as_view(), name="repropose"),
     url(r'^(?P<rdvid>[-A-Za-z0-9_]+)$', RDVView.as_view(), name="rdv_page"),
     url(r'^$', IndexView.as_view(), name="index"),
 

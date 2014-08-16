@@ -2,11 +2,91 @@
 
 {% block content %}
 
+{% load isinstance %}
+
+<h1> Anciennes propositions </h1>
+
+{% for prev in previous_rdv %}
+    <p>
+    {{ prev.proposer }}
+    {{ prev.proposed_date }}
+    {{ prev.place }}
+    ÉTAT: 
+    {% if prev.answer|isYes %}
+        ACCEPTÉ
+    {% elif prev.answer|isNo %}
+        REFUSÉ
+    {% else %}
+        AUTRE PROPOSITION FAITE
+    {% endif %}
+    par {{ prev.answer.answerer }}
+    </p>
+{% endfor %}
+
 <h1> Rendez-vous ! </h1>
 
 {{ rdv.proposer }}
 {{ rdv.proposed_date }}
 {{ rdv.place }}
+
+ANSWER: {% if rdv.answer|isYes %}YES{% elif rdv.answer|isNo %}NO{% else %}PAS DE REPONSE{% endif %}
+
+<form action="{% url 'answer' %}" method="get" id="answerForm">
+    {% csrf_token %}
+    <input type="hidden" name="rdvid" value="{{ rdv.id }}" />
+    <input type="hidden" name="ynanswer" id="ynanswer" value="" />
+    <input class="yes form-control" type="button" value="Accepter">
+    <input class="no form-control" type="button" value="Refuser">
+</form>
+
+OU PROPOSER UNE AUTRE DATE
+
+    <form action="{% url 'repropose' %}" method="get" id="rdvForm">
+
+        {% csrf_token %}
+        
+        <input type="hidden" name="rdvid" value="{{ rdvid }}">
+
+        <div class="input-group date">
+              <input type="text" class="form-control" id="id_proposed_date" name="proposed_date" placeholder="Quel jour ?"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+        </div>
+
+        <div class="input-group bootstrap-timepicker">
+            <input id="timepicker" type="text" class="input-small form-control" placeholder="Quelle heure ?" value="">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+        </div>
+
+        <div class="input-group">
+                <span class="input-group-addon">?</span>
+                <input id="id_email_creator" type="text" class="form-control" placeholder="email">
+        </div>
+        <div class="input-group">
+                <span class="input-group-addon">!</span>
+                <input id="id_place" name="place" type="text" class="form-control" placeholder="email">
+        </div>
+    
+        <input class="form-control" type="submit" value="Proposer une autre date" />
+    </form>
+
+<script>
+    $( document ).ready(function() {
+        $('.input-group.date').datepicker({});
+        $('#timepicker').timepicker();
+    });
+
+</script>
+
+<script>
+    $(".yes", "#answerForm").click(function(e) {
+        $("#ynanswer").val("y");
+        $("#answerForm").submit();
+    });
+    $(".no", "#answerForm").click(function(e) {
+        $("#ynanswer").val("n");
+        $("#answerForm").submit();
+    });
+</script>
+
 
 {% endblock %}
 

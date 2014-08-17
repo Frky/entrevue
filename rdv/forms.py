@@ -1,3 +1,6 @@
+#-*- coding: utf-8 -*-
+
+
 import datetime
 
 from django import forms
@@ -9,13 +12,19 @@ from rdv.widgets import DateWidget
 class RDVForm(forms.ModelForm):
     class Meta:
         model = RDV
-        fields = ['proposed_date', 'email_creator', 'place']
+        fields = [
+                    'proposer', 
+                    'proposed_date', 
+                    # 'email_creator', 
+                    'place',
+                ]
         widgets = {
             'proposed_date': DateWidget(attrs={
                 'placeholder': ['Quel jour ?', 'Quelle heure ?']
             }),
-            'email_creator': forms.TextInput(attrs={'placeholder': 'Nom'}),
-            'place': forms.TextInput(attrs={'placeholder': 'Lieu du rendez-vous'}),
+            'proposer': forms.TextInput(attrs={'placeholder': 'Qui propose ?'}),
+            #'email_creator': forms.TextInput(attrs={'placeholder': 'Email'}),
+            'place': forms.TextInput(attrs={'placeholder': u'Où'}),
         }
 
     def clean(self):
@@ -23,8 +32,10 @@ class RDVForm(forms.ModelForm):
         cleaned_data = super(RDVForm, self).clean()
 
         proposed_date = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M')
+        print "DATE"
+        print proposed_date
 
-        if isinstance(proposed_date, datetime.datetime):
+        if isinstance(proposed_date, datetime.datetime) and 'proposed_date' in self.errors.keys():
             del self.errors['proposed_date']
 
         cleaned_data.update({

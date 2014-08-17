@@ -25,10 +25,9 @@ class IndexView(CreateView):
     template_name = "rdv/index.html"
     model = RDV
     form_class = RDVForm
-    fields = ['proposed_date', 'email_creator', 'place']
+    fields = ['proposed_date', 'proposer', 'place']
 
     def post(self, request, *args, **kwargs):
-        print request.POST
         return super(IndexView, self).post(request, *args, **kwargs)
 
     def form_valid(self, form):
@@ -82,13 +81,16 @@ class AnswerView(TemplateView):
             return self.render_to_response(context)
 
 
-        print "OK"
         ans.save()
         rdv.answer = ans
         rdv.save()
-        print rdv.answer
 
-        return redirect("/" + str(rdv.id))
+        # Get initial rdv
+        initial_rdv = rdv
+        while initial_rdv.initial_rdv != None:
+            initial_rdv = initial_rdv.initial_rdv
+
+        return redirect("/" + str(initial_rdv.id))
 
 
 class ReproposeView(TemplateView):
@@ -96,6 +98,12 @@ class ReproposeView(TemplateView):
     def get(self, request, *args, **kwargs):
 
         context = self.get_context_data(**kwargs)
+
+        new_rdv_form = RDVForm(request.GET)
+        if new_rdv_form.is_valid():
+            print "form valid"
+
+
         # Check if the rendez-vous id is in the parameters
         if "rdvid" not in request.GET.keys():
             # Manage error here 
@@ -132,15 +140,14 @@ class ReproposeView(TemplateView):
         # NExt, we create the new proposition
 
         # Get the date string
-        date_str = request.GET["proposed_date"]
+#        date_str = request.GET["proposed_date"]
         # Create the date object
-        date = datetime.strptime(date_str, "%m/%d/%Y") 
+#        date = datetime.strptime(date_str, "%m/%d/%Y") 
         # Get the date
-        place = request.GET["place"]
+#        place = request.GET["place"]
         # Create the new rdv object linked to the previous proposition
-        new_rdv = RDV(initial_rdv=prev_prop, 
-                proposer=nickname, 
-                proposed_date=date, place=place)
+        new_rdv = new_rdv_form.save(commit=False)
+        new_rdv.initial_rdv = curr_prop
         new_rdv.save()
         
         # Redirect to the page of the initial proposition
@@ -159,7 +166,6 @@ class RDVView(TemplateView):
         while len(rdv.counter_proposition.all()) > 0:
             context["previous_rdv"].append(rdv)
             rdv = rdv.counter_proposition.all()[0]
-            print rdv
         context["rdv"] = rdv 
         return self.render_to_response(context)
 

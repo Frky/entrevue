@@ -7,33 +7,43 @@
         <h4 class="animated fadeInDown">Hey, tu viens ? </h4>
     </hgroup>
 
-{% for prev in previous_rdv %}
-    <p> {{ prev.email_creator }} t'a invité le {{ prev.proposed_date }} à {{ prev.place }}.
-    ÉTAT: 
-    {% if prev.answer|isYes %}
-        ACCEPTÉ
-    {% elif prev.answer|isNo %}
-        REFUSÉ
-    {% else %}
-        AUTRE PROPOSITION FAITE
-    {% endif %}
-    par {{ prev.answer.answerer }}
-    </p>
-{% endfor %}
-
     <section>
         <h1> Ton rendez-vous ! </h1>
 
-        <p>
-            {{ rdv.email_creator }} t'a invité le {{ rdv.proposed_date }} à {{ rdv.place }}.
+        {% for prev in previous_rdv %}
+            <p>
+                {% if prev.proposer == None or prev.proposer == "" %}
+                    Un rendez-vous a été proposé le {{ prev.proposed_date }}{% if prev.place != "" %} à {{ prev.place }}{% endif %}.
+                {% else %}
+                    {{ prev.proposer }} a proposé un rendez-vous le {{ prev.proposed_date }}{% if prev.place != "" %} à {{ prev.place }}{% endif %}.
+                {% endif %}
+            </p>
+        {% endfor%}
+
+        <p class="last_prop">
+            {% if rdv.proposer == None or rdv.proposer == "" %}
+                Un rendez-vous a été proposé le {{ rdv.proposed_date }}{% if rdv.place != "" %} à {{ rdv.place }}{% endif %}.
+            {% else %}
+                {{ rdv.proposer }} a proposé un rendez-vous le {{ rdv.proposed_date }}{% if rdv.place != "" %} à {{ rdv.place }} {% endif %}.
+            {% endif %}
         </p>
-        <p>
-            {% if rdv.answer|isYes %}Tu as répondu <em>oui</em> !{% elif rdv.answer|isNo %}Tu as répondu <em>non</em> :({% else %}Tu n'as pas encore répondu.{% endif %}
+        <p class="definitive_ans {% if rdv.answer|isYes %}yes{% elif rdv.answer|isNo %}no{% endif %}">
+            {% if rdv.answer|isYes %}
+                {% if rdv.answer.answerer == None or rdv.answer.answerer == "" %}
+                    Le rendez-vous a été accepté.
+                {% else %}
+                    {{ rdv.answer.answerer }} a accepté le rendez-vous.
+                {% endif %}
+            {% elif rdv.answer|isNo %}
+                {% if rdv.answer.answerer == None or rdv.answer.answerer == "" %}
+                    Le rendez-vous a été décliné.
+                {% else %}
+                    {{ rdv.answer.answerer }} a décliné le rendez-vous.
+                {% endif %}
+            {% endif %}
         </p>
 
-        {% if rdv.answer|isYes or rdv.answer|isNo %}
-            Tu peux modifier ta réponse ci-dessous.
-        {% endif %}
+        {% if not rdv.answer|isYes and not rdv.answer|isNo %}
             <form action="{% url 'answer' %}" method="get" id="answerForm">
                 {% csrf_token %}
                 <input type="hidden" name="rdvid" value="{{ rdv.id }}" />
@@ -56,6 +66,7 @@
 
                 <input class="validate" type="submit" value="Proposer la nouvelle date"/>
             </form>
+        {% endif %}
         </article>
     </section>
 

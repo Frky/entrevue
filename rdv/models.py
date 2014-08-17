@@ -33,7 +33,7 @@ class Answer(models.Model):
 
 class RDV(RandomPrimaryIdModel):
     creation = models.DateTimeField(auto_now_add=True)
-    proposer = models.CharField(max_length=256, blank=True, null=True)
+    proposer = models.CharField(max_length=256, blank=True, null=True, verbose_name='Nom')
     proposed_date = models.DateTimeField(auto_now_add=False, blank=False, null=False, verbose_name='Date choisie')
     initial_rdv = models.ForeignKey('rdv.RDV', related_name='counter_proposition', blank=True, null=True)
     answer = models.ForeignKey(Answer, null=True, blank=True)

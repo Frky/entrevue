@@ -174,3 +174,21 @@ section {
         display: block;
     }
 }
+
+.last_prop {
+    font-size: 1.5em;
+}
+
+.definitive_ans {
+
+    font-weight: bold;
+    font-size: 1.5em;
+
+    &.yes {
+        color: $nephritis;
+    }
+
+    &.no {
+        color: $pomegranate;
+    }
+}

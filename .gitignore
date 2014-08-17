@@ -55,5 +55,9 @@ docs/_build/
 # PyCharm
 .idea
 
+# Mac Stuff
+*.DS_Store
+
 rdv/static/rdv/.sass-cache
+rdv/static/rdv/generated/*
 rdv_db.sqlite3

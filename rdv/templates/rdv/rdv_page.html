@@ -8,7 +8,13 @@
     </hgroup>
 
     <section>
-        <h1> Ton rendez-vous ! </h1>
+        <h1>
+            {% if rdv.title != None and rdv.title != "" %}
+               {{ rdv.title }}
+            {% else %}
+                Ton rendez-vous !
+            {% endif %}
+        </h1>
 
         {% for prev in previous_rdv %}
             <p>
@@ -46,12 +52,16 @@
         {% if not rdv.answer|isYes and not rdv.answer|isNo %}
             <form action="{% url 'answer' %}" method="get" id="answerForm">
                 {% csrf_token %}
+                <div class="input-group answerer">
+                    <input id="id_answerer" maxlength="256" name="answerer" placeholder="Qui répond ?" type="text">
+                </div>
                 <input type="hidden" name="rdvid" value="{{ rdv.id }}" />
                 <input type="hidden" name="ynanswer" id="ynanswer" value="" />
                 <input class="yes validate" type="button" value="Accepter"><!--
                 --><input class="no validate" type="button" value="Refuser">
             </form>
 
+            <h2 id="or_repropose">ou</h2>
         <h1><a href="#" class="js-repropose">Proposer une autre date</a></h1>
         <article class="repropose">
             <form action="{% url 'repropose' %}" method="get" id="rdvForm">

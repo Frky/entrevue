@@ -61,6 +61,12 @@ class AnswerView(TemplateView):
         # Get rendez-vous object
         rdv = RDV.objects.get(id=request.GET["rdvid"])
 
+        # Get the name of the proposer
+        if "answerer" in request.GET.keys():
+            nickname = request.GET["answerer"]
+        else:
+            nickname = ""
+
         # Check if the answer is in the parameters
         if "ynanswer" not in request.GET.keys():
             # Manage error here 
@@ -70,10 +76,10 @@ class AnswerView(TemplateView):
 
         if request.GET["ynanswer"] == 'y':
             # Create a yes answer object
-            ans = Answer(value='y')
+            ans = Answer(value='y', answerer=nickname)
         elif request.GET["ynanswer"] == 'n':
             # Create a no answer object
-            ans = Answer(value='n')
+            ans = Answer(value='n', answerer=nickname)
         else: 
             # idem
             # TODO
@@ -147,6 +153,13 @@ class ReproposeView(TemplateView):
 #        place = request.GET["place"]
         # Create the new rdv object linked to the previous proposition
         new_rdv = new_rdv_form.save(commit=False)
+        print "Form: "
+        print new_rdv_form
+        print "place: "
+        print new_rdv.place
+        print "date: "
+        print new_rdv.proposed_date
+        print new_rdv.proposed_date
         new_rdv.initial_rdv = curr_prop
         new_rdv.save()
         
@@ -167,14 +180,15 @@ class RDVView(TemplateView):
             context["previous_rdv"].append(rdv)
             rdv = rdv.counter_proposition.all()[0]
         context["rdv"] = rdv 
+        context["form"] = RDVForm() #notitle=True) #, instance=rdv)
         return self.render_to_response(context)
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(RDVView, self).get_context_data(*args, **kwargs)
-        context.update({
-            'form': RDVForm(),
-        })
-        return context
+#    def get_context_data(self, *args, **kwargs):
+#        context = super(RDVView, self).get_context_data(*args, **kwargs)
+#        context.update({
+#            'form': RDVForm(),
+#        })
+#        return context
 
     model = RDV
     slug_field = 'pk'

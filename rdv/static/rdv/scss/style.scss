@@ -134,12 +134,19 @@ section {
 }
 
 #answerForm {
+    margin-top: 50px;
     margin-bottom: 50px;
+
+    .answerer {
+        width: 96%;
+        margin-left: 2%;
+    }
 
     input[type=button] {
         display: inline-block;
         width: 47%;
         margin-left: 2%;
+        margin-top: 10px;
 
         & + input[type=button] {
             margin-right: 2%;
@@ -166,6 +173,12 @@ section {
         }
     }
 }
+
+#or_repropose {
+    text-align: center;
+    text-decoration: underline;
+}
+
 
 .repropose {
     display: none;

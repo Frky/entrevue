@@ -64,7 +64,7 @@
             <h2 id="or_repropose">ou</h2>
         <h1><a href="#" class="js-repropose">Proposer une autre date</a></h1>
         <article class="repropose">
-            <form action="{% url 'repropose' %}" method="get" id="rdvForm">
+            <form action="{% url 'repropose' %}" method="POST" id="rdvForm">
                 {% csrf_token %}
                 <input type="hidden" name="rdvid" value="{{ rdvid }}">
                 {% for field in form %}
@@ -84,12 +84,14 @@
         $(document).ready(function () {
             $('#id_proposed_date_0').pickadate({
                 close: 'Fermer',
-                formatSubmit: 'yyyy-mm-dd'
+                formatSubmit: 'yyyy-mm-dd',
+                hiddenName: true
             });
             $('#id_proposed_date_1').pickatime({
                 editable: true,
                 formatSubmit: 'H:i',
-                format: 'H:i'
+                format: 'H:i',
+                hiddenName: true
             });
             $('#rdvForm').on('submit', function() {
                 $(this).submit();

@@ -100,71 +100,58 @@ class AnswerView(TemplateView):
 
 
 class ReproposeView(TemplateView):
+    def post(self, request, *args, **kwargs):
 
-    def get(self, request, *args, **kwargs):
-
-        context = self.get_context_data(**kwargs)
-
-        new_rdv_form = RDVForm(request.GET)
+        new_rdv_form = RDVForm(data=request.POST)
         if new_rdv_form.is_valid():
-            print "form valid"
+            # Check if the rendez-vous id is in the parameters
+            if "rdvid" not in request.POST.keys():
+                # Manage error here
+                # TODO
+                print "No rdvid given."
+                return redirect('index')
 
+            # Get initial proposition
+            rdv = RDV.objects.get(id=request.POST['rdvid'])
 
-        # Check if the rendez-vous id is in the parameters
-        if "rdvid" not in request.GET.keys():
-            # Manage error here 
-            # TODO
-            print "No rdvid given."
-            return self.render_to_response(context)
+            # Then we try to reach the last proposition
+            curr_prop = rdv
+            # While there is a previous proposition
+            while len(curr_prop.counter_proposition.all()) > 0:
+                # We take one step back
+                curr_prop = curr_prop.counter_proposition.all()[0]
 
-        # Get initial proposition
-        rdv = RDV.objects.get(id=request.GET['rdvid'])
+            # At this point, rdv is the initial proposition and curr_prop is the current one
 
-        # Then we try to reach the last proposition
-        curr_prop = rdv
-        # While there is a previous proposition
-        while len(curr_prop.counter_proposition.all()) > 0:
-            # We take one step back
-            curr_prop = curr_prop.counter_proposition.all()[0]
-        
-        # At this point, rdv is the initial proposition and curr_prop is the current one
+            # Get the name of the proposer
+            if "nickname" in request.POST.keys():
+                nickname = request.POST["nickname"]
+            else:
+                nickname = ""
 
-        # Get the name of the proposer
-        if "nickname" in request.GET.keys():
-            nickname = request.GET["nickname"]
-        else:
-            nickname = ""
+            # Creation of an answer for the current proposition
+            ans = Answer(answerer=nickname, value='o')
+            # Saving the answer
+            ans.save()
+            # Linking answer to the proposition
+            curr_prop.answer = ans
+            curr_prop.save()
 
-        # Creation of an answer for the current proposition
-        ans = Answer(answerer=nickname, value='o')
-        # Saving the answer
-        ans.save()
-        # Linking answer to the proposition
-        curr_prop.answer = ans
-        curr_prop.save()
+            # NExt, we create the new proposition
 
-        # NExt, we create the new proposition
+            # Get the date string
+    #        date_str = request.GET["proposed_date"]
+            # Create the date object
+    #        date = datetime.strptime(date_str, "%m/%d/%Y")
+            # Get the date
+    #        place = request.GET["place"]
+            # Create the new rdv object linked to the previous proposition
+            new_rdv = new_rdv_form.save(commit=False)
+            new_rdv.initial_rdv = curr_prop
+            new_rdv.save()
 
-        # Get the date string
-#        date_str = request.GET["proposed_date"]
-        # Create the date object
-#        date = datetime.strptime(date_str, "%m/%d/%Y") 
-        # Get the date
-#        place = request.GET["place"]
-        # Create the new rdv object linked to the previous proposition
-        new_rdv = new_rdv_form.save(commit=False)
-        print "Form: "
-        print new_rdv_form
-        print "place: "
-        print new_rdv.place
-        print "date: "
-        print new_rdv.proposed_date
-        print new_rdv.proposed_date
-        new_rdv.initial_rdv = curr_prop
-        new_rdv.save()
-        
-        # Redirect to the page of the initial proposition
-        return redirect("/" + str(rdv.id))
+            # Redirect to the page of the initial proposition
+            return redirect('rdv_page', rdvid=str(rdv.id))
 
 
 class RDVView(TemplateView):
@@ -180,15 +167,8 @@ class RDVView(TemplateView):
             context["previous_rdv"].append(rdv)
             rdv = rdv.counter_proposition.all()[0]
         context["rdv"] = rdv 
-        context["form"] = RDVForm() #notitle=True) #, instance=rdv)
+        context["form"] = RDVForm(notitle=True, instance=rdv)
         return self.render_to_response(context)
-
-#    def get_context_data(self, *args, **kwargs):
-#        context = super(RDVView, self).get_context_data(*args, **kwargs)
-#        context.update({
-#            'form': RDVForm(),
-#        })
-#        return context
 
     model = RDV
     slug_field = 'pk'

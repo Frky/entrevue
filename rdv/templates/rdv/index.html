@@ -27,12 +27,14 @@
         $(document).ready(function () {
             $('#id_proposed_date_0').pickadate({
                 close: 'Fermer',
-                formatSubmit: 'yyyy-mm-dd'
+                formatSubmit: 'yyyy-mm-dd',
+                hiddenName: true
             });
             $('#id_proposed_date_1').pickatime({
                 editable: true,
                 formatSubmit: 'H:i',
-                format: 'H:i'
+                format: 'H:i',
+                hiddenName: true
             });
             $('#rdvForm').on('submit', function() {
                 $(this).submit();

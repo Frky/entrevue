@@ -145,44 +145,76 @@ section h1 {
 
 /* line 136, ../../scss/style.scss */
 #answerForm {
+  margin-top: 50px;
   margin-bottom: 50px;
 }
-/* line 139, ../../scss/style.scss */
+/* line 140, ../../scss/style.scss */
+#answerForm .answerer {
+  width: 96%;
+  margin-left: 2%;
+}
+/* line 145, ../../scss/style.scss */
 #answerForm input[type=button] {
   display: inline-block;
   width: 47%;
   margin-left: 2%;
+  margin-top: 10px;
 }
-/* line 144, ../../scss/style.scss */
+/* line 151, ../../scss/style.scss */
 #answerForm input[type=button] + input[type=button] {
   margin-right: 2%;
 }
-/* line 148, ../../scss/style.scss */
+/* line 155, ../../scss/style.scss */
 #answerForm input[type=button].yes {
   background-color: #27ae60;
   color: #fff;
 }
-/* line 152, ../../scss/style.scss */
+/* line 159, ../../scss/style.scss */
 #answerForm input[type=button].yes:hover {
   background-color: #2ecc71;
   color: #ecf0f1;
 }
-/* line 158, ../../scss/style.scss */
+/* line 165, ../../scss/style.scss */
 #answerForm input[type=button].no {
   background-color: #c0392b;
   color: #ecf0f1;
 }
-/* line 162, ../../scss/style.scss */
+/* line 169, ../../scss/style.scss */
 #answerForm input[type=button].no:hover {
   background-color: #e74c3c;
   color: #ecf0f1;
 }
 
-/* line 170, ../../scss/style.scss */
+/* line 177, ../../scss/style.scss */
+#or_repropose {
+  text-align: center;
+  text-decoration: underline;
+}
+
+/* line 183, ../../scss/style.scss */
 .repropose {
   display: none;
 }
-/* line 173, ../../scss/style.scss */
+/* line 186, ../../scss/style.scss */
 .repropose.active {
   display: block;
+}
+
+/* line 191, ../../scss/style.scss */
+.last_prop {
+  font-size: 1.5em;
+}
+
+/* line 195, ../../scss/style.scss */
+.definitive_ans {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+/* line 200, ../../scss/style.scss */
+.definitive_ans.yes {
+  color: #27ae60;
+}
+/* line 204, ../../scss/style.scss */
+.definitive_ans.no {
+  color: #c0392b;
 }

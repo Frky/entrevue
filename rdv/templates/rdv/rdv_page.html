@@ -1,8 +1,8 @@
 {% extends "rdv/base.html" %}
+{% load isinstance %}
 
 {% block content %}
-
-{% load isinstance %}
+    <a class="backlink animated fadeIn" href="{% url 'index' %}" title="Proposer un rdv"><span class="glyphicon glyphicon-home"> </span></a>
     <hgroup class="not-home">
         <h4 class="animated fadeInDown">Hey, tu viens ? </h4>
     </hgroup>

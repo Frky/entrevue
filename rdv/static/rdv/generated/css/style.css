@@ -218,3 +218,11 @@ section h1 {
 .definitive_ans.no {
   color: #c0392b;
 }
+
+/* line 209, ../../scss/style.scss */
+.backlink {
+  position: absolute;
+  top: 54px;
+  left: 6px;
+  font-size: 2em;
+}

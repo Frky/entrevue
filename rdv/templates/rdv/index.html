@@ -4,23 +4,145 @@
 {% block content %}
     <hgroup>
         <h1 class="animated fadeInDown"> Entrevue </h1>
-        <h4 class="animated fadeInDown"> tu viens ? </h4>
+        <h4 class="animated fadeInDown"> Rendez vous dans deux clics </h4>
     </hgroup>
 
     <section>
-        <h1>Proposer & partager</h1>
 
-        <form action="{% url 'index' %}" method="post" id="rdvForm">
-            {% csrf_token %}
-            {% for field in form %}
-                <div class="input-group {% if field.errors %}warning{% endif %}">
-                    <label for="{{ field.name }}">{{ field.label }}{% if field.errors %} ({% for error in field.errors %}{{ error }}{% if forloop.counter != field.errors|length %}/{% endif %}{% endfor %}){% endif %}</label>
-                    {{ field }}
-                </div>
-            {% endfor %}
+        <article class="presentation active">
+            <input class="validate" id="create-rdv" type="button" value="Créer un rendez-vous"/>
+            <table class="iconography">
+                <tr class="keyword">
+                    <td colspan="5">
+                        <h1>Créez</h1>
+                    </td>
+                </tr>
+                <tr class="icon">
+                    <td>
+                        <i class="fa circle fa-calendar"></i>
+                    </td>
+                    <td>
+                        <i class="fa fa-plus"></i>
+                    </td>
+                    <td>
+                        <i class="fa circle fa-clock-o"></i>
+                    </td>
+                    <td>
+                        <i class="fa fa-plus"></i>
+                    </td>
+                    <td>
+                        <i class="fa circle fa-map-marker"></i>
+                    </td>
+                </tr>
+                <tr class="legend">
+                    <td>
+                        Un jour
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        Une heure
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        Un lieu
+                    </td>
+                </tr>
+            </table>
+            <i class="fa fa-long-arrow-down"></i>
+            <table class="iconography">
+                <tr class="keyword">
+                    <td colspan="7">
+                        <h1>Partagez</h1>
+                    </td>
+                </tr>
+                <tr class="icon">
+                    <td>
+                        <i class="fa circle fa-send"></i>
+                    </td>
+                    <td></td>
+                    <td>
+                        <i class="fa circle fa-fax"></i>
+                    </td>
+                    <td></td>
+                    <td>
+                        <i class="fa circle fa-envelope"></i>
+                    </td>
+                    <td></td>
+                    <td>
+                        <i class="fa circle fa-mobile-phone"></i>
+                    </td>
+                </tr>
+                <tr class="legend">
+                    <td>
+                        Email
+                    </td>
+                    <td></td>
+                    <td>
+                        Fax
+                    </td>
+                    <td></td>
+                    <td>
+                        Courrier
+                    </td>
+                    <td></td>
+                    <td>
+                        SMS
+                    </td>
+                </tr>
+            </table>
+            <i class="fa fa-long-arrow-down"></i>
+            <table class="iconography">
+                <tr class="keyword">
+                    <td colspan="5">
+                        <h1>Répondez</h1>
+                    </td>
+                </tr>
+                <tr class="icon">
+                    <td>
+                        <i class="fa circle fa-check-circle"></i>
+                    </td>
+                    <td></td>
+                    <td>
+                        <i class="fa circle fa-times-circle"></i>
+                    </td>
+                    <td></td>
+                    <td>
+                        <i class="fa circle fa-edit"></i>
+                    </td>
+                </tr>
+                <tr class="legend">
+                    <td>
+                        Acceptez
+                    </td>
+                    <td></td>
+                    <td>
+                        Refusez
+                    </td>
+                    <td></td>
+                    <td>
+                        Modifiez
+                    </td>
+                </tr>
+            </table>
+            <input class="validate" id="create-rdv" type="button" value="Créer un rendez-vous"/>
 
-            <input class="validate" type="submit" value="Créer le rendez-vous"/>
-        </form>
+        </article>
+
+        <article class="propose">
+            <form action="{% url 'index' %}" method="post" id="rdvForm">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="input-group {% if field.errors %}warning{% endif %}">
+                        <label for="{{ field.name }}">{{ field.label }}{% if field.errors %} ({% for error in field.errors %}{{ error }}{% if forloop.counter != field.errors|length %}/{% endif %}{% endfor %}){% endif %}</label>
+                        {{ field }}
+                    </div>
+                {% endfor %}
+    
+                <input class="validate" type="submit" value="Créer le rendez-vous"/>
+            </form>
+        </article>
     </section>
 
    <script>
@@ -36,8 +158,12 @@
                 format: 'H:i',
                 hiddenName: true
             });
-            $('#rdvForm').on('submit', function() {
-                $(this).submit();
+            $("#create-rdv").click(function() {
+                $('.presentation').toggleClass('animated fadeOutLeft'); 
+                setTimeout(function() {
+                    $('.presentation').toggleClass('active');
+                    $('.propose').toggleClass('active animated fadeInRight');
+                }, 500);
             });
         });
 

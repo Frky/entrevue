@@ -62,7 +62,7 @@
             </form>
 
             <h2 id="or_repropose">ou</h2>
-        <h1><a href="#" class="js-repropose">Proposer une autre date</a></h1>
+            <input class="validate js-repropose" type="button" value="Proposer une nouvelle date"/>
         <article class="repropose">
             <form action="{% url 'repropose' %}" method="POST" id="rdvForm">
                 {% csrf_token %}
@@ -105,7 +105,8 @@
                 $("#answerForm").submit();
             });
             $('.js-repropose').on('click', function() {
-                $('.repropose').toggleClass('active');
+                $('.repropose').toggleClass('active animated fadeInUp');
+                $( this ).toggleClass('hidden');
             });
         });
     </script>

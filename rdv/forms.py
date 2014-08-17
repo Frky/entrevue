@@ -37,7 +37,7 @@ class RDVForm(forms.ModelForm):
 
         if inst is not None:
             self.fields['place'].initial = inst.place
-            locale.setlocale(locale.LC_ALL, 'fr_FR')
+            # locale.setlocale(locale.LC_ALL, 'fr_FR')
             self.fields['proposed_date'].widget.widgets[0].attrs['data-value'] = inst.proposed_date.strftime("%Y-%m-%d")
             self.fields['proposed_date'].widget.widgets[1].attrs['data-value'] = inst.proposed_date.strftime("%H:%M")
 

@@ -10,7 +10,7 @@
     <section>
 
         <article class="presentation active">
-            <input class="validate" id="create-rdv" type="button" value="Créer un rendez-vous"/>
+            <input class="validate create-rdv" type="button" value="Créer un rendez-vous"/>
             <table class="iconography">
                 <tr class="keyword">
                     <td colspan="5">
@@ -126,7 +126,7 @@
                     </td>
                 </tr>
             </table>
-            <input class="validate" id="create-rdv" type="button" value="Créer un rendez-vous"/>
+            <input class="validate create-rdv" type="button" value="Créer un rendez-vous"/>
 
         </article>
 
@@ -158,15 +158,17 @@
                 format: 'H:i',
                 hiddenName: true
             });
-            $("#create-rdv").click(function() {
+            $(".create-rdv").click(function() {
                 $('.presentation').toggleClass('animated fadeOutLeft'); 
                 setTimeout(function() {
                     $('.presentation').toggleClass('active');
                     $('.propose').toggleClass('active animated fadeInRight');
-                }, 500);
+                }, 1000);
+                setTimeout(function() {
+                    $('.propose').toggleClass('animated fadeInRight');
+                }, 2000);
             });
         });
-
 
     </script>
 {% endblock %}

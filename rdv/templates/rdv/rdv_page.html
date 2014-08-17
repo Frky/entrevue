@@ -107,6 +107,9 @@
             $('.js-repropose').on('click', function() {
                 $('.repropose').toggleClass('active animated fadeInUp');
                 $( this ).toggleClass('hidden');
+                setTimeout(function() {
+                    $('.repropose').toggleClass('animated fadeInUp');
+                }, 1000);
             });
         });
     </script>

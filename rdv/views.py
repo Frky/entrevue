@@ -1,4 +1,5 @@
-# from django.http import HttpResponse
+#-*- coding: utf-8 -*-
+
 from django.shortcuts import render, redirect, get_object_or_404
 
 # 
@@ -14,11 +15,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 
 from datetime import datetime
 
 from rdv.models import RDV, Answer
 from rdv.forms import RDVForm
+from rdv.mail import mail_rdv_created, mail_rdv_edited, mail_rdv_answered
 
 
 class IndexView(CreateView):
@@ -33,6 +37,10 @@ class IndexView(CreateView):
     def form_valid(self, form):
         self.object = form.save()
         self.object.save()
+        email_to = form.cleaned_data['email_creator']
+
+        mail_rdv_created(self.object, [email_to]) 
+
         self.success_url = "/" + str(self.object.id)
         return redirect(self.get_success_url())
 
@@ -91,10 +99,22 @@ class AnswerView(TemplateView):
         rdv.answer = ans
         rdv.save()
 
+        email_to = list()
+
         # Get initial rdv
         initial_rdv = rdv
         while initial_rdv.initial_rdv != None:
             initial_rdv = initial_rdv.initial_rdv
+
+        try:
+            validate_email(str(rdv.email_creator))
+        except ValidationError as e:
+            pass
+        else:
+            email_to.append(str(rdv.email_creator))
+
+        # Envoi d'email pour notifier de la réponse
+        mail_rdv_answered(initial_rdv, email_to)
 
         return redirect("/" + str(initial_rdv.id))
 
@@ -121,7 +141,8 @@ class ReproposeView(TemplateView):
                 # We take one step back
                 curr_prop = curr_prop.counter_proposition.all()[0]
 
-            # At this point, rdv is the initial proposition and curr_prop is the current one
+            # At this point, rdv is the initial proposition and 
+            # curr_prop is the current one
 
             # Get the name of the proposer
             if "nickname" in request.POST.keys():
@@ -137,7 +158,7 @@ class ReproposeView(TemplateView):
             curr_prop.answer = ans
             curr_prop.save()
 
-            # NExt, we create the new proposition
+            # Next, we create the new proposition
 
             # Get the date string
     #        date_str = request.GET["proposed_date"]
@@ -149,6 +170,9 @@ class ReproposeView(TemplateView):
             new_rdv = new_rdv_form.save(commit=False)
             new_rdv.initial_rdv = curr_prop
             new_rdv.save()
+
+            # Notification by email for a new proposition
+            mail_rdv_edited(rdv, [str(curr_prop.email_creator)])
 
             # Redirect to the page of the initial proposition
             return redirect('rdv_page', rdvid=str(rdv.id))

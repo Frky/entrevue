@@ -17,7 +17,7 @@ class RDVForm(forms.ModelForm):
                     'title',
                     'proposer', 
                     'proposed_date', 
-                    # 'email_creator', 
+                    'email_creator', 
                     'place',
                 ]
         widgets = {
@@ -26,7 +26,7 @@ class RDVForm(forms.ModelForm):
             }),
             'proposer': forms.TextInput(attrs={'placeholder': 'Qui propose ?'}),
             'title': forms.TextInput(attrs={'placeholder': 'Quel titre pour ce rendez-vous ?'}),
-            #'email_creator': forms.TextInput(attrs={'placeholder': 'Email'}),
+            'email_creator': forms.TextInput(attrs={'placeholder': 'Email'}),
             'place': forms.TextInput(attrs={'placeholder': u'Où ?'}),
         }
 

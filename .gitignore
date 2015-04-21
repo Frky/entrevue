@@ -61,3 +61,4 @@ docs/_build/
 rdv/static/rdv/.sass-cache
 rdv/static/rdv/generated/*
 rdv_db.sqlite3
+entrevue/settings.py

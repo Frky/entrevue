@@ -19,6 +19,19 @@ def mail_rdv_created(rdv, dest):
         #TODO notify user that failure
         pass
 
+def mail_invitation(rdv, dest):
+    try:
+        send_mail(
+                '[RDV] ' + RDV_URL_PREFIX + rdv.id, 
+                u"Un rendez-vous vous a été proposé: " + RDV_URL_PREFIX + str(rdv.id) if (rdv.proposer == None or rdv.proposer == "") else u"{0} vous a proposé un rendez-vous: ".format(rdv.proposer) + RDV_URL_PREFIX + str(rdv.id), 
+                EMAIL_FROM,
+                dest, 
+                fail_silently=False
+            )
+    except SMTPRecipientsRefused:
+        #TODO notify user that failure
+        pass
+
 def mail_rdv_edited(rdv, dest):
     try:
         send_mail(

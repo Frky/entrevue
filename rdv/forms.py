@@ -17,8 +17,9 @@ class RDVForm(forms.ModelForm):
                     'title',
                     'proposer', 
                     'proposed_date', 
-                    'email_creator', 
                     'place',
+                    'email_creator', 
+                    'email_share', 
                 ]
         widgets = {
             'proposed_date': DateWidget(attrs={
@@ -26,8 +27,9 @@ class RDVForm(forms.ModelForm):
             }),
             'proposer': forms.TextInput(attrs={'placeholder': 'Qui propose ?'}),
             'title': forms.TextInput(attrs={'placeholder': 'Quel titre pour ce rendez-vous ?'}),
-            'email_creator': forms.TextInput(attrs={'placeholder': 'Email'}),
             'place': forms.TextInput(attrs={'placeholder': u'Où ?'}),
+            'email_creator': forms.TextInput(attrs={'placeholder': 'expe@email'}),
+            'email_share': forms.TextInput(attrs={'placeholder': 'dest@email'}),
         }
 
     def __init__(self, notitle=False, *args, **kwargs):
@@ -37,6 +39,7 @@ class RDVForm(forms.ModelForm):
 
         if inst is not None:
             self.fields['place'].initial = inst.place
+            self.fields['email_creator'].initial = inst.email_share
             # locale.setlocale(locale.LC_ALL, 'fr_FR')
             self.fields['proposed_date'].widget.widgets[0].attrs['data-value'] = inst.proposed_date.strftime("%Y-%m-%d")
             self.fields['proposed_date'].widget.widgets[1].attrs['data-value'] = inst.proposed_date.strftime("%H:%M")

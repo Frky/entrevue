@@ -68,10 +68,12 @@
                 {% csrf_token %}
                 <input type="hidden" name="rdvid" value="{{ rdvid }}">
                 {% for field in form %}
-                    <div class="input-group {% if field.errors %}warning{% endif %}">
-                        <label for="{{ field.name }}">{{ field.label }}{% if field.errors %} ({% for error in field.errors %}{{ error }}{% if forloop.counter != field.errors|length %}/{% endif %}{% endfor %}){% endif %}</label>
-                        {{ field }}
-                    </div>
+                    {% if field.name != "email_share" %}
+                        <div class="input-group {% if field.errors %}warning{% endif %}">
+                            <label for="{{ field.name }}">{{ field.label }}{% if field.errors %} ({% for error in field.errors %}{{ error }}{% if forloop.counter != field.errors|length %}/{% endif %}{% endfor %}){% endif %}</label>
+                            {{ field }}
+                        </div>
+                    {% endif %}
                 {% endfor %}
 
                 <input class="validate" type="submit" value="Proposer la nouvelle date"/>

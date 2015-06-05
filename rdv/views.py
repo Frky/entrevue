@@ -22,7 +22,7 @@ from datetime import datetime
 
 from rdv.models import RDV, Answer
 from rdv.forms import RDVForm
-from rdv.mail import mail_rdv_created, mail_rdv_edited, mail_rdv_answered
+from rdv.mail import mail_rdv_created, mail_rdv_edited, mail_rdv_answered, mail_invitation
 
 
 class IndexView(CreateView):
@@ -37,9 +37,11 @@ class IndexView(CreateView):
     def form_valid(self, form):
         self.object = form.save()
         self.object.save()
-        email_to = form.cleaned_data['email_creator']
+        email_from = form.cleaned_data['email_creator']
+        email_to = form.cleaned_data['email_share']
 
-        mail_rdv_created(self.object, [email_to]) 
+        mail_rdv_created(self.object, [email_from]) 
+        mail_invitation(self.object, [email_to])
 
         self.success_url = "/" + str(self.object.id)
         return redirect(self.get_success_url())
@@ -169,6 +171,7 @@ class ReproposeView(TemplateView):
             # Create the new rdv object linked to the previous proposition
             new_rdv = new_rdv_form.save(commit=False)
             new_rdv.initial_rdv = curr_prop
+            new_rdv.title = rdv.title
             new_rdv.save()
 
             # Notification by email for a new proposition
